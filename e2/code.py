@@ -14,6 +14,7 @@ import terminalio
 from adafruit_display_text import label
 from adafruit_gizmo import tft_gizmo
 from adafruit_display_shapes.circle import Circle
+import adafruit_imageload
 
 
 class E2_Eye:
@@ -25,11 +26,10 @@ class E2_Eye:
 
         # Create the TFT Gizmo display
         self.display = tft_gizmo.TFT_Gizmo()
+        self.load_image(1)
 
-        # Make the display context
-        self.splash = displayio.Group()
-        self.display.root_group = self.splash
 
+        """
         # Black background.
         color_bitmap = displayio.Bitmap(240, 240, 1)
         color_palette = displayio.Palette(1)
@@ -57,24 +57,46 @@ class E2_Eye:
 
         self.highlight_sprite = displayio.TileGrid(highlight.bitmap, pixel_shader=highlight.pixel_shader, x=120, y=120)
         self.splash.append(self.highlight_sprite)
+        """
 
         self.direction = 1
         self.distance = 10
-        self.update_interval = 2.0
+        self.update_interval = 3.0
         self.t = time.time()
+        self.index = 0
+
+    def load_image(self, n):
+        filename = f"images/image{n}.PNG"
+
+        # Make the display context
+        self.main_group = displayio.Group(scale=2)
+
+
+        image, palette = adafruit_imageload.load(
+            filename, bitmap=displayio.Bitmap, palette=displayio.Palette
+            )
+        self.tile_grid = displayio.TileGrid(image, pixel_shader=palette,
+                                            tile_width=120,
+                                            tile_height=120)
+        self.main_group.append(self.tile_grid)
+        self.display.root_group = self.main_group
+
 
     def service(self):
         now = time.time()
         elapsed = now - self.t
 
         if elapsed >= self.update_interval:
-            self.highlight_sprite.x += self.distance * self.direction
-            if self.direction > 0:
-                self.display.brightness = 0.5
-            else:
-                self.display.brightness = 1.0
-            self.direction *= -1
+
+            
+            # switch the image
+            self.index += 1
+            if self.index >= 21:
+                self.index = 0
+            self.load_image(self.index)
             self.t = now
+
+
             
             
 eye = E2_Eye()
