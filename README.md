@@ -35,21 +35,21 @@ Adafruit provides great instructions on how to install this.  The procedure and 
 The libraries should be with the CircuitPython code you downloaded to your host system in the last step.  Look in the lib subfolder where you unzipped adafruit-circuitpython-bundle-8.x-mpy-20230920.zip.
 
 With the Circuit Playground connected to your PC, you should see a CIRCUITPY device connected as a thumb drive.  Create a "lib" folder in the root there if it doesn't already exist.  Then copy these folders from the lib folder on your host to the lib folder on the device:
-    * adafruit_ble
-    * adafruit_bluefruit_connect
-    * adafruit_bus_device
-    * adafruit_circuitplayground
-    * adafruit_display_shapes
-    * adafruit_display_text
-    * adafruit_gizmo
-    * adafruit_hid
-    * adafruit_imageload
+  * adafruit_ble
+  * adafruit_bluefruit_connect
+  * adafruit_bus_device
+  * adafruit_circuitplayground
+  * adafruit_display_shapes
+  * adafruit_display_text
+  * adafruit_gizmo
+  * adafruit_hid
+  * adafruit_imageload
 
 Also copy these files from the lib folder on the host to the lib folder on the device:
-    * adafruit_lis3dh.mpy
-    * adafruit_st7789.mpy
-    * adafruit_thermistor.mpy
-    * neopixel.mpy
+  * adafruit_lis3dh.mpy
+  * adafruit_st7789.mpy
+  * adafruit_thermistor.mpy
+  * neopixel.mpy
 
 ### Copy images to the device.
 
