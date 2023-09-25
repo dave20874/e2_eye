@@ -7,14 +7,13 @@ look like the E2 droid's eye.
 """
 import time
 import board
-from digitalio import DigitalInOut, Direction, Pull
 
 import displayio
-import terminalio
-from adafruit_display_text import label
 from adafruit_gizmo import tft_gizmo
-from adafruit_display_shapes.circle import Circle
 import adafruit_imageload
+import neopixel
+
+RED = (255, 0, 0)
 
 
 class E2_Eye:
@@ -23,6 +22,10 @@ class E2_Eye:
         # self.backlight = DigitalInOut(board.A3)
         # self.backlight.direction = OUTPUT
         # self.backlight.value = True
+
+        # self.pixels = neopixel.NeoPixel(board.NEOPIXEL, 10, brightness=0.2, auto_write=False)
+        # self.pixels.fill(RED)
+        # self.pixels.show()
 
         # Create the TFT Gizmo display
         self.display = tft_gizmo.TFT_Gizmo()
@@ -59,8 +62,6 @@ class E2_Eye:
         self.splash.append(self.highlight_sprite)
         """
 
-        self.direction = 1
-        self.distance = 10
         self.update_interval = 3.0
         self.t = time.time()
         self.index = 0
