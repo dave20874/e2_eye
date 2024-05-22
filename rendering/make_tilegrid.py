@@ -131,9 +131,9 @@ def draw_eye(pitch, roll):
 
     return crop
 
-def draw_eye_components(pitch, roll, iris_color):
+def draw_eye_components(pitch, roll, iris_color, bgcolor):
     # Create a working image to draw in.  We'll copy this to input draw context at the end.
-    im2 = Image.new("RGBA", [240, 240], (0, 0, 0, 0))
+    im2 = Image.new("RGBA", [240, 240], bgcolor)
     cx = 120
     cy = 120
     d2 = ImageDraw.Draw(im2)
@@ -212,15 +212,16 @@ def draw_eye2(pitch, roll):
     small_blur = ImageFilter.GaussianBlur(radius=1.0)
 
 
-    base_im = Image.new("RGB", (240, 240), (0, 0, 0))
-    glow = draw_eye_components(pitch, roll, IRIS_GLOW)
+
+    glow = draw_eye_components(pitch, roll, IRIS_GLOW, (0, 0, 0, 0))
     glow = glow.filter(big_blur)
     brighten = ImageEnhance.Brightness(glow)
     glow = brighten.enhance(2.0)
     
-    overexposed = draw_eye_components(pitch, roll, IRIS_GLARE)
+    overexposed = draw_eye_components(pitch, roll, IRIS_GLARE, (255, 0, 0, 0))
     overexposed = overexposed.filter(small_blur)
 
+    base_im = Image.new("RGB", (240, 240), (0, 0, 0))
     base_im.paste(glow)
     base_im.paste(overexposed, mask=overexposed)
 
